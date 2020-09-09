@@ -1,54 +1,15 @@
 import React from 'react';
 import './App.css';
-import logoPath from './images/logo.svg';
+import Header from './header/Header';
+import Main from './main/Main';
+import Footer from './footer/Footer';
 
 function App() {
   return (
     <div className="page__container">
-      <header className="header page__header page__section">
-        <a href="#" className="header__logo-link">
-          <img src={logoPath} alt="logo" className="logo header__logo" />
-        </a>
-        <h1 className="header__title">Сервис Mesto Russia</h1>
-      </header>
-
-      <main className="content page__content">
-
-        <div className="profile page__section">
-          <div className="profile__container">
-            <div className="profile__userpic">
-              <div className="profile__edit" tabindex="0"></div>
-              <img src="#" alt="Аватар автора" className="profile__image" />
-            </div>
-            <div className="profile__user">
-              <h2 className="profile__user-name"></h2>
-              <p className="profile__user-job"></p>
-            </div>
-            <button
-              type="button"
-              title="Редактирование профиля"
-              className="button button_type_edit-profile button_style_primary"></button>
-          </div>
-          <div className="profile__add-post">
-            <button
-              type="button"
-              title="Добавить фото"
-              className="button button_type_add-photo button_style_primary"></button>
-          </div>
-        </div>
-
-      <div className="elements page__section">
-        <ul className="elements__container">
-          
-        </ul>
-
-      </div>
-
-    </main>
-
-    <footer className="footer page__footer page__section">
-      <p className="footer__copyright">&copy; 2020 Mesto Russia</p>
-    </footer>
+      <Header />
+      <Main />
+      <Footer />
 
     <template id="elementTemplate">
       <li className="elements__item element">
