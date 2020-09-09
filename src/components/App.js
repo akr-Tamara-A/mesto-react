@@ -3,6 +3,7 @@ import './App.css';
 import Header from './header/Header';
 import Main from './main/Main';
 import Footer from './footer/Footer';
+import ImagePopup from './popups/ImagePopup';
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
           <div className="element__head">
             <img src="#" 
                 alt="Описание фотографии" 
-                tabindex="0"
+                tabIndex="0"
                 className="element__image" />
           </div>
           <figcaption className="element__figcaption">
@@ -50,7 +51,7 @@ function App() {
               action="#"
               method="POST"
               name="editProfile" 
-              novalidate
+              noValidate
               className="popup__form">
           <h2 className="popup__title">Редактировать профиль</h2>
           <label className="popup__form-field">
@@ -59,8 +60,8 @@ function App() {
                   name="editProfileUserName" 
                   type="text" 
                   required
-                  minlength="2"
-                  maxlength="40"
+                  minLength="2"
+                  maxLength="40"
                   pattern="^[A-Za-zА-Яа-яЁё\s-]+$"
                   placeholder="Имя пользователя" 
                   className="popup__input popup__input_type_username" />
@@ -72,8 +73,8 @@ function App() {
                   name="editProfileUserJob" 
                   type="text" 
                   required
-                  minlength="2"
-                  maxlength="200"
+                  minLength="2"
+                  maxLength="200"
                   placeholder="О себе" 
                   className="popup__input popup__input_type_about" />
             <span id="input-userJob-error" className="popup__input-error"></span>
@@ -99,7 +100,7 @@ function App() {
               action="#"
               method="POST"
               name="editAvatar" 
-              novalidate
+              noValidate
               className="popup__form">
           <h2 className="popup__title">Обновить аватар</h2>
           <label className="popup__form-field">
@@ -133,7 +134,7 @@ function App() {
               action="#"
               method="POST"
               name="addPhoto" 
-              novalidate
+              noValidate
               className="popup__form">
           <h2 className="popup__title">Новое место</h2>
           <label className="popup__form-field">
@@ -143,8 +144,8 @@ function App() {
                   type="text" 
                   placeholder="Название" 
                   required
-                  minlength="2"
-                  maxlength="30"
+                  minLength="2"
+                  maxLength="30"
                   className="popup__input popup__input_type_photo-title" />
             <span id="input-photoTitle-error" className="popup__input-error"></span>
           </label>
@@ -167,20 +168,7 @@ function App() {
       </div>
     </div>
                                             
-    <div id="popupViewPhoto" className="popup popup_style_view">
-      <div className="popup__container">
-        <button 
-              name="viewPhotoClose" 
-              type="button" 
-              title="Закрыть окно" 
-              className="popup__close">
-        </button>
-        <div className="popup__view">
-          <img src="#" alt="Описание фотографии" className="popup__photo" />
-          <p className="popup__photo-title">Название фотографии</p>
-        </div>
-      </div>
-    </div>
+    <ImagePopup />
 
     <div id="popupDeleteCard" className="popup popup_style_form">
       <div className="popup__container">
@@ -194,7 +182,7 @@ function App() {
               action="#"
               method="POST"
               name="deleteCard" 
-              novalidate
+              noValidate
               className="popup__form">
           <h2 className="popup__title">Вы уверены?</h2>
           <input 
