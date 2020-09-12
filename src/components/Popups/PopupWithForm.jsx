@@ -1,6 +1,8 @@
 import React from "react";
 
+/** Компонент "Попап с формой" */
 export default function PopupWithForm(props) {
+  /** Разметка попапа с формой */
   return (
     <div
       id={props.name}

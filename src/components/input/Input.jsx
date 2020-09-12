@@ -1,6 +1,8 @@
 import React from "react";
 
+/** Компонент "Инпут" */
 export default function Input(props) {
+  /** Разметка инпута */
   return (
     <label className="popup__form-field">
       <input

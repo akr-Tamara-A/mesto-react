@@ -1,7 +1,9 @@
 import React from 'react';
 import logoPath from '../../images/logo.svg';
 
+/** Компонент "Хедер" */
 export default function Header() {
+  /** Разметка хедера */
   return (
     <header className="header page__header page__section">
       <a href="#" className="header__logo-link">

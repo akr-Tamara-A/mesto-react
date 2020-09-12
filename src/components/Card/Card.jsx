@@ -1,10 +1,13 @@
 import React from 'react';
 
+/** Компонент "Карточка" */
 export default function Card(props) {
+  /** Функция обработки клика по карточке */
   function handleClick() {
     props.onCardClick(props.card);
   } 
 
+  /** Разметка карточки */
   return (
     <li className="elements__item element">
       <figure className="element__wrapper">

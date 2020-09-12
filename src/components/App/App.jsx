@@ -7,12 +7,14 @@ import ImagePopup from '../Popups/ImagePopup';
 import PopupWithForm from '../Popups/PopupWithForm';
 import Input from '../Input/Input';
 
+/** Основной компонент страницы */
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState();
 
+  /** Функция закрытия попапов */
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
@@ -20,10 +22,12 @@ function App() {
     setSelectedCard('');
   }
 
+  /** Функция обработки клика по карточке */
   function handleCardClick(card) {
     setSelectedCard(card);
   }
 
+  /** Основная разметка */
   return (
     <div className="page__container">
       <Header />

@@ -1,6 +1,8 @@
 import React from 'react';
 
+/** Компонент "Попап просмотра фото" */
 export default function ImagePopup(props) {
+  /** Разметка попапа просмотра фото */
   return (
     <div id="popupViewPhoto" className={`popup popup_style_view ${props.card && "popup_opened"}`}>
       <div className="popup__container">

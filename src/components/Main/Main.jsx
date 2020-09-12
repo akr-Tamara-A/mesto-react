@@ -3,6 +3,7 @@ import Card from "../Card/Card";
 import Spinner from "../Spinner/Spinner";
 import { api } from "../../utils/Api";
 
+/** Компонент "Контент страницы" */
 export default function Main(props) {
   const [userName, setUserName] = React.useState();
   const [userDescription, setUserDescription] = React.useState();
@@ -10,6 +11,7 @@ export default function Main(props) {
   const [isLoading, setIsLoading] = React.useState(false);
   const [cards, setCards] = React.useState([]);
 
+  /** Загруза данных пользователя */
   React.useEffect(() => {
     setIsLoading(true);
     api
@@ -25,6 +27,7 @@ export default function Main(props) {
       .finally(() => setIsLoading(false));
   }, [setUserName, setUserDescription, setUserAvatar]);
 
+  /** Загрузка массива карточек */
   React.useEffect(() => {
     api
       .getInitialCards()
@@ -36,6 +39,7 @@ export default function Main(props) {
       })
     }, [setCards]);
 
+  /** Разметка контента страницы */
   return (
     <main className="content page__content">
       <div className="profile page__section">

@@ -1,13 +1,12 @@
 import React from 'react';
 import './Spinner.css';
 
+/** Компонент "Спиннер" */
 export default function Spinner() {
+  /** Разметка спиннера */
   return (
     <div className="spinner">
       <div className="spinner__item"></div>
-      {/* <div class="spinner__circle spinner__opacity-1"></div>
-      <div class="spinner__circle spinner__opacity-2"></div>
-      <div class="spinner__circle spinner__opacity-3"></div> */}
     </div>
   );
 }
