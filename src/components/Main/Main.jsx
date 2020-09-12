@@ -1,6 +1,6 @@
 import React from "react";
-import Card from "../card/Card";
-import Spinner from "../spinner/Spinner";
+import Card from "../Card/Card";
+import Spinner from "../Spinner/Spinner";
 import { api } from "../../utils/Api";
 
 export default function Main(props) {

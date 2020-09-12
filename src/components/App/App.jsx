@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import Header from './header/Header';
-import Main from './main/Main';
-import Footer from './footer/Footer';
-import ImagePopup from './popups/ImagePopup';
-import PopupWithForm from './popups/PopupWithForm';
-import Input from './input/Input';
+import Header from '../Header/Header';
+import Main from '../Main/Main';
+import Footer from '../Footer/Footer';
+import ImagePopup from '../Popups/ImagePopup';
+import PopupWithForm from '../Popups/PopupWithForm';
+import Input from '../Input/Input';
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
