@@ -18,7 +18,7 @@ export default function Main(props) {
       })
       .catch((err) => {
         console.log("Ошибка. Не удалось установить новые данные: ", err);
-      });
+      })
   }, [setUserName, setUserDescription, setUserAvatar]);
 
   React.useEffect(() => {
@@ -73,7 +73,7 @@ export default function Main(props) {
           {cards.map((card) => {
             return (
               <Card card={card} key={card._id} onCardClick={props.onCardClick}/>
-            )
+            );
           })}
         </ul>
       </div>

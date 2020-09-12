@@ -5,6 +5,7 @@ import Main from './main/Main';
 import Footer from './footer/Footer';
 import ImagePopup from './popups/ImagePopup';
 import PopupWithForm from './popups/PopupWithForm';
+import Input from './input/Input';
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
@@ -41,7 +42,6 @@ function App() {
         }}
         />
       <Footer />
-
       <PopupWithForm
         name="editProfile"
         title="Редактировать профиль"
@@ -49,43 +49,26 @@ function App() {
         onClose={closeAllPopups}
         children={
           <>
-            <label className="popup__form-field">
-              <input
-                id="input-userName"
-                name="editProfileUserName"
-                type="text"
-                required
-                minLength="2"
-                maxLength="40"
-                pattern="^[A-Za-zА-Яа-яЁё\s-]+$"
-                placeholder="Имя пользователя"
-                className="popup__input popup__input_type_username"
-              />
-              <span
-                id="input-userName-error"
-                className="popup__input-error"
-              ></span>
-            </label>
-            <label className="popup__form-field">
-              <input
-                id="input-userJob"
-                name="editProfileUserJob"
-                type="text"
-                required
-                minLength="2"
-                maxLength="200"
-                placeholder="О себе"
-                className="popup__input popup__input_type_about"
-              />
-              <span
-                id="input-userJob-error"
-                className="popup__input-error"
-              ></span>
-            </label>
+            <Input
+              name="userName"
+              type="text"
+              minLength="2"
+              maxLength="40"
+              pattern="^[A-Za-zА-Яа-яЁё\s-]+$"
+              placeholder="Имя пользователя"
+              isRequired={true}
+            />
+            <Input
+              name="userJob"
+              type="text"
+              minLength="2"
+              maxLength="200"
+              placeholder="О себе"
+              isRequired={true}
+            />
           </>
         }
       />
-
       <PopupWithForm
         name="editAvatar"
         title="Обновить аватар"
@@ -93,24 +76,15 @@ function App() {
         onClose={closeAllPopups}
         children={
           <>
-            <label className="popup__form-field">
-              <input
-                id="input-avatar"
-                name="editUserAvatar"
-                type="url"
-                required
-                placeholder="Ссылка на новый аватар"
-                className="popup__input popup__input_type_avatar"
-              />
-              <span
-                id="input-avatar-error"
-                className="popup__input-error"
-              ></span>
-            </label>
+            <Input
+              name="avatar"
+              type="url"
+              placeholder="Ссылка на новый аватар"
+              isRequired={true}
+            />
           </>
         }
       />
-
       <PopupWithForm 
         name="addPhoto"
         title="Новое место"
@@ -118,45 +92,27 @@ function App() {
         onClose={closeAllPopups}
         children={
           <>
-            <label className="popup__form-field">
-              <input
-                id="input-photoTitle"
-                name="addPhotoTitle"
-                type="text"
-                placeholder="Название"
-                required
-                minLength="2"
-                maxLength="30"
-                className="popup__input popup__input_type_photo-title"
-              />
-              <span
-                id="input-photoTitle-error"
-                className="popup__input-error"
-              ></span>
-            </label>
-            <label className="popup__form-field">
-              <input
-                id="input-photoLink"
-                name="addPhotoLink"
-                type="url"
-                placeholder="Ссылка на картинку"
-                required
-                className="popup__input popup__input_type_photo-link"
-              />
-              <span
-                id="input-photoLink-error"
-                className="popup__input-error"
-              ></span>
-            </label>
+            <Input
+              name="photoTitle"
+              type="text"
+              minLength="2"
+              maxLength="30"
+              placeholder="Название"
+              isRequired={true}
+            />
+            <Input
+              name="photoLink"
+              type="url"
+              placeholder="Ссылка на картинку"
+              isRequired={true}
+            />
           </>
         }
       />
-
       <ImagePopup 
         card={selectedCard}
         onClose={closeAllPopups}
       />
-
       <PopupWithForm
         name="deleteCard"
         title="Вы уверены?"
@@ -164,7 +120,6 @@ function App() {
         onClose={closeAllPopups}
         children={<></>} 
       />
-
     </div>
   );
 }
