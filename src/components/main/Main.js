@@ -1,14 +1,17 @@
 import React from "react";
 import Card from "../card/Card";
+import Spinner from "../spinner/Spinner";
 import { api } from "../../utils/Api";
 
 export default function Main(props) {
   const [userName, setUserName] = React.useState();
   const [userDescription, setUserDescription] = React.useState();
   const [userAvatar, setUserAvatar] = React.useState();
+  const [isLoading, setIsLoading] = React.useState(false);
   const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
+    setIsLoading(true);
     api
       .getUserInfo()
       .then((data) => {
@@ -19,6 +22,7 @@ export default function Main(props) {
       .catch((err) => {
         console.log("Ошибка. Не удалось установить новые данные: ", err);
       })
+      .finally(() => setIsLoading(false));
   }, [setUserName, setUserDescription, setUserAvatar]);
 
   React.useEffect(() => {
@@ -70,11 +74,14 @@ export default function Main(props) {
       </div>
       <div className="elements page__section">
         <ul className="elements__container">
-          {cards.map((card) => {
-            return (
-              <Card card={card} key={card._id} onCardClick={props.onCardClick}/>
-            );
-          })}
+          {isLoading 
+            ? <Spinner />
+            : cards.map((card) => {
+              return (
+                <Card card={card} key={card._id} onCardClick={props.onCardClick}/>
+              );
+            })
+          }
         </ul>
       </div>
     </main>
