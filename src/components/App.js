@@ -10,11 +10,17 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState();
 
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setSelectedCard('');
+  }
+
+  function handleCardClick(card) {
+    setSelectedCard(card);
   }
 
   return (
@@ -29,39 +35,12 @@ function App() {
         }}
         onAddPlace={() => {
           setIsAddPlacePopupOpen(true);
-          }} />
+        }}
+        onCardClick={(card) => {
+          handleCardClick(card);
+        }}
+        />
       <Footer />
-
-      <template id="elementTemplate">
-        <li className="elements__item element">
-          <figure className="element__wrapper">
-            <div className="element__head">
-              <img
-                src="#"
-                alt="Описание фотографии"
-                tabIndex="0"
-                className="element__image"
-              />
-            </div>
-            <figcaption className="element__figcaption">
-              <h3 className="element__title"></h3>
-              <div className="element__like">
-                <button
-                  type="button"
-                  title="Добавь лайк"
-                  className="button button_type_no-like element__like-button button_style_secondary"
-                ></button>
-                <p className="element__like-counter"></p>
-              </div>
-            </figcaption>
-          </figure>
-          <button
-            type="button"
-            title="Удалить фото"
-            className="element__delete element__delete_hidden button button_type_delete button_style_secondary"
-          ></button>
-        </li>
-      </template>
 
       <PopupWithForm
         name="editProfile"
@@ -173,7 +152,10 @@ function App() {
         }
       />
 
-      <ImagePopup />
+      <ImagePopup 
+        card={selectedCard}
+        onClose={closeAllPopups}
+      />
 
       <PopupWithForm
         name="deleteCard"
