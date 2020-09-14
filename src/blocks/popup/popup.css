@@ -36,7 +36,7 @@
   z-index: 10;
 
   margin: 0;
-  margin-left: calc(100vw - 100%);
+
   
   opacity: 0;
   visibility: hidden;
