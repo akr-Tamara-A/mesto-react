@@ -49,70 +49,61 @@ function App() {
       <PopupWithForm
         name="editProfile"
         title="Редактировать профиль"
+        submitValue = "Сохранить"
         isOpen={isEditProfilePopupOpen}
-        onClose={closeAllPopups}
-        children={
-          <>
-            <Input
-              name="userName"
-              type="text"
-              minLength="2"
-              maxLength="40"
-              pattern="^[A-Za-zА-Яа-яЁё\s-]+$"
-              placeholder="Имя пользователя"
-              isRequired={true}
-            />
-            <Input
-              name="userJob"
-              type="text"
-              minLength="2"
-              maxLength="200"
-              placeholder="О себе"
-              isRequired={true}
-            />
-          </>
-        }
-      />
+        onClose={closeAllPopups}>
+        <Input
+          name="userName"
+          type="text"
+          minLength="2"
+          maxLength="40"
+          pattern="^[A-Za-zА-Яа-яЁё\s-]+$"
+          placeholder="Имя пользователя"
+          isRequired={true}
+        />
+        <Input
+          name="userJob"
+          type="text"
+          minLength="2"
+          maxLength="200"
+          placeholder="О себе"
+          isRequired={true}
+        />
+      </PopupWithForm>
       <PopupWithForm
         name="editAvatar"
         title="Обновить аватар"
+        submitValue = "Сохранить"
         isOpen={isEditAvatarPopupOpen}
-        onClose={closeAllPopups}
-        children={
-          <>
-            <Input
-              name="avatar"
-              type="url"
-              placeholder="Ссылка на новый аватар"
-              isRequired={true}
-            />
-          </>
-        }
-      />
-      <PopupWithForm 
+        onClose={closeAllPopups}>
+        <Input
+          name="avatar"
+          type="url"
+          placeholder="Ссылка на новый аватар"
+          isRequired={true}
+        />
+      </PopupWithForm>
+      <PopupWithForm
         name="addPhoto"
         title="Новое место"
+        submitValue = "Сохранить"
         isOpen={isAddPlacePopupOpen}
-        onClose={closeAllPopups}
-        children={
-          <>
-            <Input
-              name="photoTitle"
-              type="text"
-              minLength="2"
-              maxLength="30"
-              placeholder="Название"
-              isRequired={true}
-            />
-            <Input
-              name="photoLink"
-              type="url"
-              placeholder="Ссылка на картинку"
-              isRequired={true}
-            />
-          </>
-        }
+        onClose={closeAllPopups}>
+        <Input
+          name="photoTitle"
+          type="text"
+          minLength="2"
+          maxLength="30"
+          placeholder="Название"
+          isRequired={true}
+        />
+        <Input
+        name="photoLink"
+        type="url"
+        placeholder="Ссылка на картинку"
+        isRequired={true}
       />
+      </PopupWithForm>
       <ImagePopup 
         card={selectedCard}
         onClose={closeAllPopups}
@@ -120,9 +111,9 @@ function App() {
       <PopupWithForm
         name="deleteCard"
         title="Вы уверены?"
+        submitValue = "Да"
         isOpen={false}
         onClose={closeAllPopups}
-        children={<></>} 
       />
     </div>
   );

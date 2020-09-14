@@ -65,7 +65,7 @@ export default function Main(props) {
             title="Редактирование профиля"
             onClick={props.onEditProfile}
             className="button button_type_edit-profile button_style_primary"
-          ></button>
+          />
         </div>
         <div className="profile__add-post">
           <button
@@ -73,7 +73,7 @@ export default function Main(props) {
             title="Добавить фото"
             onClick={props.onAddPlace}
             className="button button_type_add-photo button_style_primary"
-          ></button>
+          />
         </div>
       </div>
       <div className="elements page__section">

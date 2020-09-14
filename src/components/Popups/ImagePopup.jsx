@@ -12,7 +12,7 @@ export default function ImagePopup(props) {
           title="Закрыть окно"
           onClick={props.onClose}
           className="popup__close"
-        ></button>
+        />
         <div className="popup__view">
           <img 
             src={props.card && props.card.link} 

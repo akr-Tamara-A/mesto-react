@@ -15,7 +15,7 @@ export default function PopupWithForm(props) {
           title="Закрыть окно"
           onClick={props.onClose}
           className="popup__close"
-        ></button>
+        />
         <form
           action="#"
           method="POST"
@@ -27,9 +27,9 @@ export default function PopupWithForm(props) {
           <h2 className="popup__title">{props.title}</h2>
           {props.children}
           <input
-            name="editProfileSubmit"
+            name={`${props.name}Submit`}
             type="submit"
-            value="Сохранить"
+            value={props.submitValue}
             className="popup__submit"
           />
         </form>
