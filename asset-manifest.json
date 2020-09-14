@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/akr-Tamara-A/mesto-react/static/css/main.9d6c607b.chunk.css",
+    "main.js": "/akr-Tamara-A/mesto-react/static/js/main.6d0035a8.chunk.js",
+    "main.js.map": "/akr-Tamara-A/mesto-react/static/js/main.6d0035a8.chunk.js.map",
+    "runtime-main.js": "/akr-Tamara-A/mesto-react/static/js/runtime-main.025698ad.js",
+    "runtime-main.js.map": "/akr-Tamara-A/mesto-react/static/js/runtime-main.025698ad.js.map",
+    "static/js/2.8b66efd4.chunk.js": "/akr-Tamara-A/mesto-react/static/js/2.8b66efd4.chunk.js",
+    "static/js/2.8b66efd4.chunk.js.map": "/akr-Tamara-A/mesto-react/static/js/2.8b66efd4.chunk.js.map",
+    "index.html": "/akr-Tamara-A/mesto-react/index.html",
+    "precache-manifest.6901a704e0533959c77f16641676ebf7.js": "/akr-Tamara-A/mesto-react/precache-manifest.6901a704e0533959c77f16641676ebf7.js",
+    "service-worker.js": "/akr-Tamara-A/mesto-react/service-worker.js",
+    "static/css/main.9d6c607b.chunk.css.map": "/akr-Tamara-A/mesto-react/static/css/main.9d6c607b.chunk.css.map",
+    "static/js/2.8b66efd4.chunk.js.LICENSE.txt": "/akr-Tamara-A/mesto-react/static/js/2.8b66efd4.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/akr-Tamara-A/mesto-react/static/media/user-blank.c3c790e1.png",
+    "static/media/logo.svg": "/akr-Tamara-A/mesto-react/static/media/logo.855a8c98.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.025698ad.js",
+    "static/js/2.8b66efd4.chunk.js",
+    "static/css/main.9d6c607b.chunk.css",
+    "static/js/main.6d0035a8.chunk.js"
+  ]
+}
