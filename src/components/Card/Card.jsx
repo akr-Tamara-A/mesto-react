@@ -10,7 +10,12 @@ export default function Card(props) {
     props.onCardClick(props.card);
   }
 
-  /** Проверка владельца карточки */
+  /** Функция обработки лайка карточки */
+  function handleLike() {
+    props.onCardLike(props.card);
+  }
+
+  /** Проверка если создатель карточки - текущий пользователь */
   const isOwn = props.card.owner._id === currentUser._id;
 
   /** Переменная со стиля для кнопки удаления карточки */
@@ -53,6 +58,7 @@ export default function Card(props) {
               type="button"
               title="Добавь лайк"
               className={cardLikeButtonClassName}
+              onClick={handleLike}
             />
             <p className="element__like-counter">{props.card.likes.length}</p>
           </div>

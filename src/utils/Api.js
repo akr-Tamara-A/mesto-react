@@ -82,6 +82,21 @@ export default class Api {
     });
   }
 
+  /** */
+  changeLikeCardStatus(cardId, isLiked) {
+    const method = isLiked ? "PUT" : "DELETE";
+    
+    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+      method: method,
+      headers: this.headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
+  }
+
   /** "залайкать" карточку (PUT) */
   likeCard(cardID) {
     return fetch(`${this._baseUrl}/cards/likes/${cardID}`, {
@@ -121,7 +136,6 @@ export default class Api {
     });
   }
 }
-
 
 /** Связь с сервером */
 export const api = new Api({

@@ -26,6 +26,26 @@ export default function Main(props) {
       });
   }, [setCards]);
 
+
+  /* function handleCardLike(card) {
+    // Снова проверяем, есть ли уже лайк на этой карточке
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+  }  */
+  
+  /** Обработка лайка карточки */
+  const handleCardLike = currentCard => {
+    /** Проверка лайкнута ли карточка */
+    const isLiked = currentCard.likes.some(user => user._id === currentUser._id);
+    
+    api.changeLikeCardStatus(currentCard._id, !isLiked).then((newCard) => {
+      const newCards = cards.map((card) => card._id === currentCard._id ? newCard : card);
+      setCards(newCards);
+    });
+  }
+
+
   /** Разметка контента страницы */
   return (
     <main className="content page__content">
@@ -69,7 +89,7 @@ export default function Main(props) {
             ? <Spinner />
             : cards.map((card) => {
               return (
-                <Card card={card} key={card._id} onCardClick={props.onCardClick}/>
+                <Card card={card} key={card._id} onCardClick={props.onCardClick} onCardLike={handleCardLike}/>
               );
             })
           }
