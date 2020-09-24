@@ -1,31 +1,16 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Card from "../Card/Card";
 import Spinner from "../Spinner/Spinner";
 import { api } from "../../utils/Api";
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 /** Компонент "Контент страницы" */
 export default function Main(props) {
-  const [userName, setUserName] = React.useState();
-  const [userDescription, setUserDescription] = React.useState();
-  const [userAvatar, setUserAvatar] = React.useState();
   const [isLoading, setIsLoading] = React.useState(false);
   const [cards, setCards] = React.useState([]);
 
-  /** Загруза данных пользователя */
-  React.useEffect(() => {
-    setIsLoading(true);
-    api
-      .getUserInfo()
-      .then((data) => {
-        setUserName(data.name);
-        setUserDescription(data.about);
-        setUserAvatar(data.avatar);
-      })
-      .catch((err) => {
-        console.log("Ошибка. Не удалось установить новые данные: ", err);
-      })
-      .finally(() => setIsLoading(false));
-  }, [setUserName, setUserDescription, setUserAvatar]);
+
+  const UserInfo = useContext(CurrentUserContext);
 
   /** Загрузка массива карточек */
   React.useEffect(() => {
@@ -51,14 +36,14 @@ export default function Main(props) {
               tabIndex="0"
             ></div>
             <img
-              src={userAvatar}
+              src={UserInfo && UserInfo.avatar}
               alt="Аватар автора"
               className="profile__image"
             />
           </div>
           <div className="profile__user">
-            <h2 className="profile__user-name">{userName}</h2>
-            <p className="profile__user-job">{userDescription}</p>
+            <h2 className="profile__user-name">{UserInfo && UserInfo.name}</h2>
+            <p className="profile__user-job">{UserInfo && UserInfo.about}</p>
           </div>
           <button
             type="button"
