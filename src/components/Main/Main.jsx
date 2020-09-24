@@ -26,14 +26,6 @@ export default function Main(props) {
       });
   }, [setCards]);
 
-
-  /* function handleCardLike(card) {
-    // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
-    
-    // Отправляем запрос в API и получаем обновлённые данные карточки
-  }  */
-  
   /** Обработка лайка карточки */
   const handleCardLike = currentCard => {
     /** Проверка лайкнута ли карточка */
@@ -45,6 +37,19 @@ export default function Main(props) {
     });
   }
 
+  /** Обработка удаления карточки */
+  const handleCardDelete = currentCard => {
+    console.log(currentCard);
+    api.deleteCard(currentCard._id)
+    .then((res) => {
+      console.log(res);
+      const newCards = cards.filter(card => {
+        return card._id !== currentCard._id ? true : false
+      });
+      setCards(newCards);
+      console.log('card deleted');
+    })
+  }
 
   /** Разметка контента страницы */
   return (
@@ -89,7 +94,7 @@ export default function Main(props) {
             ? <Spinner />
             : cards.map((card) => {
               return (
-                <Card card={card} key={card._id} onCardClick={props.onCardClick} onCardLike={handleCardLike}/>
+                <Card card={card} key={card._id} onCardClick={props.onCardClick} onCardLike={handleCardLike} onCardDelete={handleCardDelete}/>
               );
             })
           }

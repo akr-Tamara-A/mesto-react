@@ -15,6 +15,11 @@ export default function Card(props) {
     props.onCardLike(props.card);
   }
 
+  /** Функция обработки удаления карточки */
+  function handleDelete() {
+    props.onCardDelete(props.card);
+  }
+
   /** Проверка если создатель карточки - текущий пользователь */
   const isOwn = props.card.owner._id === currentUser._id;
 
@@ -68,6 +73,7 @@ export default function Card(props) {
         type="button"
         title="Удалить фото"
         className={cardDeleteButtonClassName}
+        onClick={handleDelete}
       />
     </li>
   );
