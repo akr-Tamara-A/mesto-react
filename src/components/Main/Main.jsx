@@ -7,13 +7,12 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 /** Компонент "Контент страницы" */
 export default function Main(props) {
   const [isLoading, setIsLoading] = React.useState(false);
-  const [cards, setCards] = React.useState([]);
+  const [cards, setCards] = useState([]);
 
-
-  const UserInfo = useContext(CurrentUserContext);
-
-  /** Загрузка массива карточек */
-  React.useEffect(() => {
+  const currentUser = useContext(CurrentUserContext);
+  
+  /** Загрузка данных карточек с сервера */
+  useEffect(() => {
     api
       .getInitialCards()
       .then((data) => {
@@ -22,7 +21,10 @@ export default function Main(props) {
       .catch((err) => {
         console.log("Ошибка. Не удалось установить новые данные: ", err);
       })
-    }, [setCards]);
+      .finally(() => {
+        console.log(`cards info loaded`);
+      });
+  }, [setCards]);
 
   /** Разметка контента страницы */
   return (
@@ -36,14 +38,14 @@ export default function Main(props) {
               tabIndex="0"
             ></div>
             <img
-              src={UserInfo && UserInfo.avatar}
+              src={currentUser && currentUser.avatar}
               alt="Аватар автора"
               className="profile__image"
             />
           </div>
           <div className="profile__user">
-            <h2 className="profile__user-name">{UserInfo && UserInfo.name}</h2>
-            <p className="profile__user-job">{UserInfo && UserInfo.about}</p>
+            <h2 className="profile__user-name">{currentUser && currentUser.name}</h2>
+            <p className="profile__user-job">{currentUser && currentUser.about}</p>
           </div>
           <button
             type="button"

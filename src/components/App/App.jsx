@@ -12,17 +12,18 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 /** Основной компонент страницы */
 function App() {
   const [currentUser, setCurrentUser] = useState();
+
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState();
 
+  /** Загрузка данных текущего пользователя с сервера */
   useEffect(() => {
     api
       .getUserInfo()
       .then((data) => {
         setCurrentUser(data);
-        console.log(data);
       })
       .catch((err) => {
         console.log("Ошибка. Не удалось установить новые данные: ", err);
@@ -30,7 +31,7 @@ function App() {
       .finally(() => {
         console.log(`user info loaded`);
       });
-  }, []);
+  }, [setCurrentUser]);
 
   /** Функция закрытия попапов */
   function closeAllPopups() {

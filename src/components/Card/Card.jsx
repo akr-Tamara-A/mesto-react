@@ -1,11 +1,37 @@
-import React from 'react';
+import React, { useContext } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 /** Компонент "Карточка" */
 export default function Card(props) {
+  const currentUser = useContext(CurrentUserContext);
+
   /** Функция обработки клика по карточке */
   function handleClick() {
     props.onCardClick(props.card);
-  } 
+  }
+
+  /** Проверка владельца карточки */
+  const isOwn = props.card.owner._id === currentUser._id;
+
+  /** Переменная со стиля для кнопки удаления карточки */
+  const cardDeleteButtonClassName = `
+      element__delete 
+      button 
+      button_style_secondary 
+      button_type_delete
+      ${!isOwn ? "element__delete_hidden" : null}`;
+
+  /** Проверка есть ли у карточки лайк, поставленный текущим пользователем */
+  const isLiked = props.card.likes.some((i) => i._id === currentUser._id);
+
+  /** Переменная со стиля для кнопки лайка карточки */
+  const cardLikeButtonClassName = `
+    button 
+    button_type_no-like 
+    element__like-button 
+    button_style_secondary
+    ${isLiked ? "button_type_like" : "button_type_no-like"}
+    `;
 
   /** Разметка карточки */
   return (
@@ -26,7 +52,7 @@ export default function Card(props) {
             <button
               type="button"
               title="Добавь лайк"
-              className="button button_type_no-like element__like-button button_style_secondary"
+              className={cardLikeButtonClassName}
             />
             <p className="element__like-counter">{props.card.likes.length}</p>
           </div>
@@ -35,14 +61,8 @@ export default function Card(props) {
       <button
         type="button"
         title="Удалить фото"
-        className="element__delete element__delete_hidden button button_type_delete button_style_secondary"
+        className={cardDeleteButtonClassName}
       />
     </li>
   );
 }
-
-
-
-
-
-
