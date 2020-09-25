@@ -33,13 +33,13 @@ export default class Api {
   }
 
   /** заменить данные пользователя (PATCH) */
-  patchUserInfo(name, about) {
+  patchUserInfo(data) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this.headers,
       body: JSON.stringify({
-        name: name,
-        about: about,
+        name: data.name,
+        about: data.about,
       }),
     }).then((res) => {
       if (res.ok) {

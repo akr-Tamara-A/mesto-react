@@ -18,10 +18,10 @@ export default function PopupWithForm(props) {
         />
         <form
           action="#"
-          method="POST"
+          /* method="POST" */
           name={props.name}
           noValidate
-          onSubmit={props.onClose}
+          onSubmit={props.onSubmit}
           className="popup__form"
         >
           <h2 className="popup__title">{props.title}</h2>

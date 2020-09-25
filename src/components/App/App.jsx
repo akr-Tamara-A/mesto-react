@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import ImagePopup from "../Popups/ImagePopup";
 import PopupWithForm from "../Popups/PopupWithForm";
+import EditProfilePopup from "../Popups/EditProfilePopup";
 import Input from "../Input/Input";
 import { api } from "../../utils/Api";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
@@ -34,7 +35,7 @@ function App() {
   }, [setCurrentUser]);
 
   /** Функция закрытия попапов */
-  function closeAllPopups() {
+  const closeAllPopups = () => {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -42,8 +43,23 @@ function App() {
   }
 
   /** Функция обработки клика по карточке */
-  function handleCardClick(card) {
+  const handleCardClick = card => {
     setSelectedCard(card);
+  }
+
+  /** Обработка сабмита редактирования профиля пользователя */
+  const handleUpdateUser = (data) => {
+    api.patchUserInfo(data)
+    .then(data => {
+      setCurrentUser(data);
+    })
+    .catch((err) => {
+      console.log("Ошибка. Не удалось установить новые данные: ", err);
+    })
+    .finally(() => {
+      console.log(`user info loaded`);
+      setIsEditProfilePopupOpen(false);
+    });
   }
 
   /** Основная разметка */
@@ -66,31 +82,11 @@ function App() {
           }}
         />
         <Footer />
-        <PopupWithForm
-          name="editProfile"
-          title="Редактировать профиль"
-          submitValue="Сохранить"
+        <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
-        >
-          <Input
-            name="userName"
-            type="text"
-            minLength="2"
-            maxLength="40"
-            pattern="^[A-Za-zА-Яа-яЁё\s-]+$"
-            placeholder="Имя пользователя"
-            isRequired={true}
-          />
-          <Input
-            name="userJob"
-            type="text"
-            minLength="2"
-            maxLength="200"
-            placeholder="О себе"
-            isRequired={true}
-          />
-        </PopupWithForm>
+          onUpdateUser={handleUpdateUser}
+        />
         <PopupWithForm
           name="editAvatar"
           title="Обновить аватар"

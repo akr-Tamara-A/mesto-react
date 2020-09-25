@@ -1,21 +1,17 @@
 import React from "react"; 
  
 /** Компонент "Инпут" */ 
-export default function Input(props) { 
+export default function Input({name, isRequired, ...rest}) { 
   /** Разметка инпута */ 
   return ( 
     <label className="popup__form-field"> 
       <input 
-        id={`input-${props.name}`} 
-        type={props.type} 
-        required={props.isRequired} 
-        minLength={props.minLength} 
-        maxLength={props.maxLength} 
-        pattern={props.pattern} 
-        placeholder={props.placeholder} 
+        id={`input-${name}`} 
+        required={isRequired} 
+        {...rest}
         className="popup__input" 
       /> 
-      <span id={`input-${props.name}-error`} className="popup__input-error"></span> 
+      <span id={`input-${name}-error`} className="popup__input-error"></span> 
     </label> 
   ); 
 } 
