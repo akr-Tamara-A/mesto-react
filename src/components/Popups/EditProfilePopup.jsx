@@ -19,12 +19,11 @@ export default function EditProfilePopup(props) {
   }, [currentUser]);
 
   useEffect(() => {
-    console.log(name);
   }, [name, setName])
 
   const handleOnChangeName = useCallback(evt => {
     setName(evt.target.value);
-  }, [name, setName]);
+  }, [setName]);
 
   const handleOnChangeDescription = useCallback(evt => {
     setDescription(evt.target.value);

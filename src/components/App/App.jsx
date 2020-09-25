@@ -6,6 +6,7 @@ import Footer from "../Footer/Footer";
 import ImagePopup from "../Popups/ImagePopup";
 import PopupWithForm from "../Popups/PopupWithForm";
 import EditProfilePopup from "../Popups/EditProfilePopup";
+import EditAvatarPopup from "../Popups/EditAvatarPopup";
 import Input from "../Input/Input";
 import { api } from "../../utils/Api";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
@@ -57,8 +58,23 @@ function App() {
       console.log("Ошибка. Не удалось установить новые данные: ", err);
     })
     .finally(() => {
-      console.log(`user info loaded`);
+      console.log(`user info updates`);
       setIsEditProfilePopupOpen(false);
+    });
+  }
+
+  /** Обработка сабмита редактирования аватара пользователя */
+  const handleUpdateAvatar = (data) => {
+    api.patchUserAvatar(data)
+    .then(data => {
+      setCurrentUser(data);
+    })
+    .catch((err) => {
+      console.log("Ошибка. Не удалось установить новые данные: ", err);
+    })
+    .finally(() => {
+      console.log(`user avatar updated`);
+      setIsEditAvatarPopupOpen(false);
     });
   }
 
@@ -87,20 +103,11 @@ function App() {
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
         />
-        <PopupWithForm
-          name="editAvatar"
-          title="Обновить аватар"
-          submitValue="Сохранить"
+        <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
-        >
-          <Input
-            name="avatar"
-            type="url"
-            placeholder="Ссылка на новый аватар"
-            isRequired={true}
-          />
-        </PopupWithForm>
+          onUpdateAvatar={handleUpdateAvatar}
+        />
         <PopupWithForm
           name="addPhoto"
           title="Новое место"
