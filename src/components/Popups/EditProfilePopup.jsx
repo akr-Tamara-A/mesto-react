@@ -18,8 +18,6 @@ export default function EditProfilePopup(props) {
     }
   }, [currentUser]);
 
-  useEffect(() => {
-  }, [name, setName])
 
   const handleOnChangeName = useCallback(evt => {
     setName(evt.target.value);

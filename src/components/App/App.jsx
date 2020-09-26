@@ -7,6 +7,7 @@ import ImagePopup from "../Popups/ImagePopup";
 import PopupWithForm from "../Popups/PopupWithForm";
 import EditProfilePopup from "../Popups/EditProfilePopup";
 import EditAvatarPopup from "../Popups/EditAvatarPopup";
+import AddPlacePopup from "../Popups/AddPlacePopup";
 import Input from "../Input/Input";
 import { api } from "../../utils/Api";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
@@ -18,6 +19,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [cards, setCards] = useState([]);
   const [selectedCard, setSelectedCard] = useState();
 
   /** Загрузка данных текущего пользователя с сервера */
@@ -35,6 +37,22 @@ function App() {
       });
   }, [setCurrentUser]);
 
+    /** Загрузка данных карточек с сервера */
+    useEffect(() => {
+      api
+        .getInitialCards()
+        .then((data) => {
+          setCards(data);
+        })
+        .catch((err) => {
+          console.log("Ошибка. Не удалось установить новые данные: ", err);
+        })
+        .finally(() => {
+          console.log(`cards info loaded`);
+        });
+    }, [setCards]);
+  
+
   /** Функция закрытия попапов */
   const closeAllPopups = () => {
     setIsEditAvatarPopupOpen(false);
@@ -42,6 +60,31 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setSelectedCard(null);
   }
+  
+  /** Обработка лайка карточки */
+  const handleCardLike = currentCard => {
+    /** Проверка лайкнута ли карточка */
+    const isLiked = currentCard.likes.some(user => user._id === currentUser._id);
+    
+    api.changeLikeCardStatus(currentCard._id, !isLiked).then((newCard) => {
+      const newCards = cards.map((card) => card._id === currentCard._id ? newCard : card);
+      setCards(newCards);
+    });
+  }
+
+  /** Обработка удаления карточки */
+  const handleCardDelete = currentCard => {
+    api.deleteCard(currentCard._id)
+    .then((res) => {
+      console.log(res);
+      const newCards = cards.filter(card => {
+        return card._id !== currentCard._id ? true : false
+      });
+      setCards(newCards);
+      console.log('card deleted');
+    })
+  }
+
 
   /** Функция обработки клика по карточке */
   const handleCardClick = card => {
@@ -78,12 +121,30 @@ function App() {
     });
   }
 
+  /** Обработка сабмита добавления карточки */
+  const handleAddCard = (title, link) => {
+    console.log(title, link);
+    api.postNewCard(title, link)
+    .then(newCard => {
+      console.log(newCard);
+      setCards([newCard, ...cards]);
+    })
+    .catch((err) => {
+      console.log("Ошибка. Не удалось установить новые данные: ", err);
+    })
+    .finally(() => {
+      console.log(`new card added`);
+      setIsAddPlacePopupOpen(false);
+    });
+  }
+
   /** Основная разметка */
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page__container">
         <Header />
         <Main
+          cards={cards}
           onEditProfile={() => {
             setIsEditProfilePopupOpen(true);
           }}
@@ -93,8 +154,14 @@ function App() {
           onAddPlace={() => {
             setIsAddPlacePopupOpen(true);
           }}
-          onCardClick={(card) => {
+          onCardClick={card => {
             handleCardClick(card);
+          }}
+          onCardLike={card => {
+            handleCardLike(card)
+          }}
+          onCardDelete={card => {
+            handleCardDelete(card)
           }}
         />
         <Footer />
@@ -108,28 +175,11 @@ function App() {
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
         />
-        <PopupWithForm
-          name="addPhoto"
-          title="Новое место"
-          submitValue="Сохранить"
+        <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
-        >
-          <Input
-            name="photoTitle"
-            type="text"
-            minLength="2"
-            maxLength="30"
-            placeholder="Название"
-            isRequired={true}
-          />
-          <Input
-            name="photoLink"
-            type="url"
-            placeholder="Ссылка на картинку"
-            isRequired={true}
-          />
-        </PopupWithForm>
+          onAddPlace={handleAddCard}
+        />
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
         <PopupWithForm
           name="deleteCard"
