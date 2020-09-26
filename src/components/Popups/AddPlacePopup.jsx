@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import PopupWithForm from "../Popups/PopupWithForm";
 import Input from "../Input/Input";
 
@@ -6,10 +6,6 @@ export default function AddPlacePopup(props) {
   const [title, setTitle] = useState('');
   const [link, setLink] = useState('');
 
-  useEffect(() => {
-
-  })
-  
   const handleChangeTitle = useCallback(evt => {
     setTitle(evt.target.value);
   }, [setTitle]);
