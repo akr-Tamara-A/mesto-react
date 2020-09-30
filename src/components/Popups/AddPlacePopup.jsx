@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import PopupWithForm from "../Popups/PopupWithForm";
 import Input from "../Input/Input";
 
-export default function AddPlacePopup(props) {
+export default function AddPlacePopup({onAddPlace, ...props}) {
   const [title, setTitle] = useState('');
   const [link, setLink] = useState('');
 
@@ -16,10 +16,10 @@ export default function AddPlacePopup(props) {
 
   const handleSubmit = useCallback((evt) => {
     evt.preventDefault();
-    props.onAddPlace(title, link);
+    onAddPlace(title, link);
     setTitle('');
     setLink('');
-  }, [title, link]);
+  }, [title, link, onAddPlace]);
 
 
   return (
@@ -27,8 +27,7 @@ export default function AddPlacePopup(props) {
       name="addPhoto"
       title="Новое место"
       submitValue="Сохранить"
-      isOpen={props.isOpen}
-      onClose={props.onClose}
+      {...props}
       onSubmit={handleSubmit}
     >
       <Input

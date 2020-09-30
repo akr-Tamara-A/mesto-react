@@ -1,15 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import Card from "../Card/Card";
 import Spinner from "../Spinner/Spinner";
-import { api } from "../../utils/Api";
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 /** Компонент "Контент страницы" */
 export default function Main(props) {
-  const [isLoading, setIsLoading] = React.useState(false);
-
   const currentUser = useContext(CurrentUserContext);
-
 
   /** Разметка контента страницы */
   return (
@@ -50,7 +46,7 @@ export default function Main(props) {
       </div>
       <div className="elements page__section">
         <ul className="elements__container">
-          {isLoading 
+          {props.isCardsLoading 
             ? <Spinner />
             : props.cards.map((card) => {
               return (

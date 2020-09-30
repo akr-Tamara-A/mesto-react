@@ -5,7 +5,7 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 
 /** Компонент "Попап редактирование профиля" */
-export default function EditProfilePopup(props) {
+export default function EditProfilePopup({onUpdateUser, ...props}) {
   const currentUser = useContext(CurrentUserContext);
 
   const [name, setName] = useState('');
@@ -30,18 +30,17 @@ export default function EditProfilePopup(props) {
   const handleSubmit = useCallback((evt) => {
     evt.preventDefault();
 
-    props.onUpdateUser({
+    onUpdateUser({
       name, 
       about: description});
-  }, [name, description]);
+  }, [name, description, onUpdateUser]);
 
   return (
     <PopupWithForm
     name="editProfile"
     title="Редактировать профиль"
     submitValue="Сохранить"
-    isOpen={props.isOpen}
-    onClose={props.onClose}
+    {...props}
     onSubmit={handleSubmit}
   >
     <Input

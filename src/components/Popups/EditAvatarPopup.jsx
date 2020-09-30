@@ -1,35 +1,20 @@
-import React, { useState, useContext, useCallback, useEffect, useRef, createRef } from "react";
+import React, { useCallback, createRef } from "react";
 import PopupWithForm from "../Popups/PopupWithForm";
 import Input from "../Input/Input";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-export default function EditAvatarPopup(props) {
-  const currentUser = useContext(CurrentUserContext);
-  const [avatar, setAvatar] = useState('');
+export default function EditAvatarPopup({ onUpdateAvatar, ...props}) {
   const inputRef = createRef();
-  
-  useEffect(() => {
-    if (currentUser) {
-      setAvatar(currentUser.avatar);
-    }
-  }, [currentUser]);
 
-  const handleOnChangeAvatar = useCallback((e) => {
-    setAvatar(e.target.value);
-  }, [setAvatar])
-  
   const handleSubmit = useCallback((evt) => {
     evt.preventDefault();
-    props.onUpdateAvatar(inputRef.current.value);
-  }, [inputRef]);
+    onUpdateAvatar(inputRef.current.value);
+  }, [inputRef, onUpdateAvatar]);
 
   return (
     <PopupWithForm
       name="editAvatar"
       title="Обновить аватар"
-      submitValue="Сохранить"
-      isOpen={props.isOpen}
-      onClose={props.onClose}
+      {...props}
       onSubmit={handleSubmit}
     >
       <Input
@@ -38,7 +23,6 @@ export default function EditAvatarPopup(props) {
         placeholder="Ссылка на новый аватар"
         isRequired={true}
         ref={inputRef}
-        //onChange={handleOnChangeAvatar}
       />
     </PopupWithForm>
   );

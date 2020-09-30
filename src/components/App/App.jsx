@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -8,49 +8,49 @@ import PopupWithForm from "../Popups/PopupWithForm";
 import EditProfilePopup from "../Popups/EditProfilePopup";
 import EditAvatarPopup from "../Popups/EditAvatarPopup";
 import AddPlacePopup from "../Popups/AddPlacePopup";
-import Input from "../Input/Input";
 import { api } from "../../utils/Api";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 /** Основной компонент страницы */
 function App() {
-  const [currentUser, setCurrentUser] = useState();
+  const [currentUser, setCurrentUser] = useState({});
 
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [cards, setCards] = useState([]);
-  const [selectedCard, setSelectedCard] = useState();
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [isCardsLoading, setCardsIsLoading] = useState(false);
+  const [submitButtonValues, setSubmitButtonValues] = useState({
+    editAvatar: 'Сохранить',
+    editUserInfo: 'Сохранить',
+    addCards: 'Сохранить',
+    confirmDeletion: 'Да',
+  });
 
-  /** Загрузка данных текущего пользователя с сервера */
   useEffect(() => {
+    /** Загрузка данных текущего пользователя с сервера */
     api
-      .getUserInfo()
-      .then((data) => {
-        setCurrentUser(data);
-      })
-      .catch((err) => {
-        console.log("Ошибка. Не удалось установить новые данные: ", err);
-      })
-      .finally(() => {
-        console.log(`user info loaded`);
-      });
-  }, [setCurrentUser]);
-
-    /** Загрузка данных карточек с сервера */
-    useEffect(() => {
+    .getUserInfo()
+    .then((data) => {
+      setCurrentUser(data);
+      console.log(`user info loaded`);
+      setCardsIsLoading(true);
+      /** Загрузка данных карточек с сервера */
       api
-        .getInitialCards()
-        .then((data) => {
-          setCards(data);
-        })
-        .catch((err) => {
-          console.log("Ошибка. Не удалось установить новые данные: ", err);
-        })
-        .finally(() => {
-          console.log(`cards info loaded`);
+      .getInitialCards()
+      .then((data) => {
+        setCards(data);
+      })
+    })
+    .catch((err) => {
+      console.log("Ошибка. Не удалось установить новые данные: ", err);
+    })
+    .finally(() => {
+      setCardsIsLoading(false);
+      console.log(`cards info loaded`);
         });
-    }, [setCards]);
+    }, [setCurrentUser, setCards]);
   
 
   /** Функция закрытия попапов */
@@ -93,6 +93,10 @@ function App() {
 
   /** Обработка сабмита редактирования профиля пользователя */
   const handleUpdateUser = (data) => {
+    setSubmitButtonValues({
+      ...submitButtonValues, 
+      editUserInfo: 'Загружается...',
+    })
     api.patchUserInfo(data)
     .then(data => {
       setCurrentUser(data);
@@ -102,12 +106,20 @@ function App() {
     })
     .finally(() => {
       console.log(`user info updates`);
+      setSubmitButtonValues({
+        ...submitButtonValues, 
+        editUserInfo: 'Сохранить',
+      })
       setIsEditProfilePopupOpen(false);
     });
   }
 
   /** Обработка сабмита редактирования аватара пользователя */
   const handleUpdateAvatar = (data) => {
+    setSubmitButtonValues({
+      ...submitButtonValues, 
+      editAvatar: 'Загружается...',
+    });
     api.patchUserAvatar(data)
     .then(data => {
       setCurrentUser(data);
@@ -117,26 +129,38 @@ function App() {
     })
     .finally(() => {
       console.log(`user avatar updated`);
+      setSubmitButtonValues({
+        ...submitButtonValues, 
+        editAvatar: 'Сохранить',
+      })
       setIsEditAvatarPopupOpen(false);
     });
   }
-
+  
   /** Обработка сабмита добавления карточки */
   const handleAddCard = (title, link) => {
-    console.log(title, link);
-    api.postNewCard(title, link)
-    .then(newCard => {
-      console.log(newCard);
-      setCards([newCard, ...cards]);
-    })
-    .catch((err) => {
-      console.log("Ошибка. Не удалось установить новые данные: ", err);
-    })
-    .finally(() => {
-      console.log(`new card added`);
-      setIsAddPlacePopupOpen(false);
+    setSubmitButtonValues({
+      ...submitButtonValues,
+      addCards: "Загружается...",
     });
-  }
+    api
+      .postNewCard(title, link)
+      .then((newCard) => {
+        console.log(newCard);
+        setCards([newCard, ...cards]);
+      })
+      .catch((err) => {
+        console.log("Ошибка. Не удалось установить новые данные: ", err);
+      })
+      .finally(() => {
+        console.log(`new card added`);
+        setSubmitButtonValues({
+          ...submitButtonValues,
+          addCards: "Сохранить",
+        });
+        setIsAddPlacePopupOpen(false);
+      });
+  };
 
   /** Основная разметка */
   return (
@@ -145,6 +169,7 @@ function App() {
         <Header />
         <Main
           cards={cards}
+          isCardsLoading={isCardsLoading}
           onEditProfile={() => {
             setIsEditProfilePopupOpen(true);
           }}
@@ -166,16 +191,19 @@ function App() {
         />
         <Footer />
         <EditProfilePopup
+          submitValue={submitButtonValues.editUserInfo}
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
         />
         <EditAvatarPopup
+          submitValue={submitButtonValues.editAvatar}
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
         />
         <AddPlacePopup
+          submitValue={submitButtonValues.addCards}
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onAddPlace={handleAddCard}
@@ -184,7 +212,7 @@ function App() {
         <PopupWithForm
           name="deleteCard"
           title="Вы уверены?"
-          submitValue="Да"
+          submitValue={submitButtonValues.confirmDeletion}
           isOpen={false}
           onClose={closeAllPopups}
         />
