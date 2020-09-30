@@ -13,8 +13,8 @@ export default function EditProfilePopup({onUpdateUser, ...props}) {
 
   useEffect(() => {
     if (currentUser) {
-      setName(currentUser.name);
-      setDescription(currentUser.about);
+      setName(currentUser.name || '');
+      setDescription(currentUser.about || '');
     }
   }, [currentUser]);
 
