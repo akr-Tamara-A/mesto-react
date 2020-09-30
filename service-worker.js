@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/akr-Tamara-A/mesto-react/precache-manifest.6901a704e0533959c77f16641676ebf7.js"
+  "/akr-Tamara-A/mesto-react/precache-manifest.8abb9064f846d3c8040814ff00e85b51.js"
 );
 
 self.addEventListener('message', (event) => {

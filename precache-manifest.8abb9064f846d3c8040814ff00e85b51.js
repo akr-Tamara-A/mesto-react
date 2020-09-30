@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "80e064bf9e156d97545d0cbab381c38d",
+    "revision": "d6c01360ab1ab5ae82f9f13500f94443",
     "url": "/akr-Tamara-A/mesto-react/index.html"
   },
   {
-    "revision": "6c29c7dc0b876e10052b",
-    "url": "/akr-Tamara-A/mesto-react/static/css/main.9d6c607b.chunk.css"
+    "revision": "365bc3026df5525ee834",
+    "url": "/akr-Tamara-A/mesto-react/static/css/main.768f0f6e.chunk.css"
   },
   {
-    "revision": "fd689bf95fcdc6f87d88",
-    "url": "/akr-Tamara-A/mesto-react/static/js/2.8b66efd4.chunk.js"
+    "revision": "c30bef8ea10f2c9d8422",
+    "url": "/akr-Tamara-A/mesto-react/static/js/2.5ad5e886.chunk.js"
   },
   {
     "revision": "e88a3e95b5364d46e95b35ae8c0dc27d",
-    "url": "/akr-Tamara-A/mesto-react/static/js/2.8b66efd4.chunk.js.LICENSE.txt"
+    "url": "/akr-Tamara-A/mesto-react/static/js/2.5ad5e886.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "6c29c7dc0b876e10052b",
-    "url": "/akr-Tamara-A/mesto-react/static/js/main.6d0035a8.chunk.js"
+    "revision": "365bc3026df5525ee834",
+    "url": "/akr-Tamara-A/mesto-react/static/js/main.9f5ba89a.chunk.js"
   },
   {
     "revision": "eed0082952ebdb235083",
