@@ -78,7 +78,7 @@ function App() {
     .then((res) => {
       console.log(res);
       const newCards = cards.filter(card => {
-        return card._id !== currentCard._id ? true : false
+        return card._id !== currentCard._id
       });
       setCards(newCards);
       console.log('card deleted');

@@ -4,7 +4,7 @@
   "private": true,
   "description": "Сервис Mesto: интерактивая страница, куда можно добавлять фотографии, удалять их и ставить лайки.",
   "author": "Andreeva Tamara",
-  "homepage": "https://github.com/akr-Tamara-A/mesto-react",
+  "homepage": "https://akr-tamara-a.github.io/mesto-react",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
